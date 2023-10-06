@@ -1,10 +1,11 @@
 import Header from "./components/Header"
+import HomeScreen from "./screens/HomeScreen"
 
 const App = () => {
   return (
     <>
       <Header/>
-      <h1>MERN Simple Auth App</h1>
+      <HomeScreen/>
     </>
   )
 }
