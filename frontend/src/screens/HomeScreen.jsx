@@ -1,8 +1,7 @@
+import Hero from "../components/Hero"
+
 const HomeScreen = () => {
-    return (
-        <div>
-        </div>
-    )
+    return <Hero/>
 }
 
 export default HomeScreen;
