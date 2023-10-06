@@ -1,4 +1,5 @@
 import { Container, Card, Button } from 'react-bootstrap'
+import { LinkContainer } from 'react-router-bootstrap'
 
 const Hero = () => {
     return (
@@ -12,12 +13,16 @@ const Hero = () => {
                         This is a boilerplate that stores a JWT in an HTTP-Only cookie for MERN authentication. The Redux Toolkit and the React Bootstrap Library are also utilized.
                     </p>
                     <div className='d-flex'>
-                        <Button variant='primary' href='/login' className='me-3'>
-                            Sign In
-                        </Button>
-                        <Button variant='secondary' href='/register' className='me-3'>
-                            Sign Out
-                        </Button>
+                        <LinkContainer to='/login'>
+                            <Button variant='primary' className='me-3'>
+                                Sign In
+                            </Button>
+                        </LinkContainer>
+                        <LinkContainer to='/register'>
+                            <Button variant='secondary' className='me-3'>
+                                Sign Out
+                            </Button>
+                        </LinkContainer>
                     </div>
                 </Card> 
             </Container>
