@@ -4,9 +4,9 @@ const initialState = {
     userInfo: localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null
 }
 
-const authSlice = CreateSlice({
+const authSlice = createSlice({
     name: 'auth',
-    state: initialState,
+    initialState,
     reducers: {
         setCredentials: (state, action) => {
             state.userInfo = action.payload;
