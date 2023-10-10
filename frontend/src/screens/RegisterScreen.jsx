@@ -1,7 +1,12 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { Form, Button, Row, Col } from 'react-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
+import { setCredentials } from '../slices/authSlice'
+import { useRegisterMutation } from '../slices/usersApiSlice'
 import FormContainer from '../components/FormContainer'
+import { toast } from 'react-toastify'
+import Loader from '../components/LoaderSpinner'
 
 const RegisterScreen = () => {
     const [name, setName] = useState('');
@@ -9,9 +14,37 @@ const RegisterScreen = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const [register, { isLoading }] = useRegisterMutation();
+
+    const { userInfo } = useSelector((state) => state.auth);
+
+    useEffect(() => {
+        if (userInfo) {
+            navigate('/');
+        }
+    }, [navigate, userInfo]);
+    
     const submitHandler = async (e) => {
         e.preventDefault();
-        console.log('Submit');
+
+        if (password !== confirmPassword) {
+            toast.error('Passwords do not match');
+        } else{
+            try{
+                const res = await register({
+                    name,
+                    email,
+                    password
+                }).unwrap();
+                dispatch(setCredentials({...res}));
+                navigate('/');
+            } catch (e) {
+                toast.error(e?.data?.message || e.error);
+            }
+        }
     }
 
     return (
@@ -37,6 +70,8 @@ const RegisterScreen = () => {
                     <Form.Label>Confirm Password</Form.Label>
                     <Form.Control type='password' placeholder='Confirm Password' value={ confirmPassword } onChange={ (e) => setConfirmPassword(e.target.value) }></Form.Control>
                 </Form.Group>
+
+                {isLoading && <Loader/> }
 
                 <Button type='submit' variant='primary' className='mt-3'>
                     Sign Up
