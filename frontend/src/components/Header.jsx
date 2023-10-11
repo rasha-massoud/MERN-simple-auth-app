@@ -20,6 +20,7 @@ const Header = () => {
             await logoutApiCall().unwrap();
             dispatch(clearCredentials());
             navigate('/');
+            window.location.reload();
         } catch (e) {
             console.log(e);
         }
