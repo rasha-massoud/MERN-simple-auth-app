@@ -19,6 +19,7 @@ const Hero = () => {
             await logoutApiCall().unwrap();
             dispatch(clearCredentials());
             navigate('/');
+            window.location.reload();
         } catch (e) {
             console.log(e);
         }
@@ -42,11 +43,9 @@ const Hero = () => {
                                         Profile
                                     </Button>
                                 </LinkContainer>
-                                <LinkContainer to=''>
-                                    <Button variant='secondary' className='me-3' onClick={ logoutHandler }>
-                                        Logout
-                                    </Button>
-                                </LinkContainer>
+                                <Button variant='secondary' className='me-3' onClick={ logoutHandler }>
+                                    Logout
+                                </Button>
                             </div>
                         </>
                     ) : (
